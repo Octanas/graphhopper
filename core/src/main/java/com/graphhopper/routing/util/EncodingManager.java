@@ -321,6 +321,8 @@ public class EncodingManager implements EncodedValueLookup {
                 _addEdgeTagParser(new OSMMaxSpeedParser(), false, false);
             if (!em.hasEncodedValue(RoadAccess.KEY))
                 _addEdgeTagParser(new OSMRoadAccessParser(), false, false);
+            if (!em.hasEncodedValue(Crossing.KEY))
+                _addEdgeTagParser(new OSMCrossingParser(), false, false);
 
             // ensure that SpatialRuleParsers come after required EncodedValues like max_speed or road_access
             // TODO can we avoid this hack without complex dependency management?
