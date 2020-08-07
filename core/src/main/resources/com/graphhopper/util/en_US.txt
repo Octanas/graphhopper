@@ -1,5 +1,8 @@
 # do not edit manually, instead use spreadsheet https://t.co/f086oJXAEI and script ./core/files/update-translations.sh
 
+cross_front=Take the crossing in front
+cross_right=Take the crossing on the right
+cross_left=Take the crossing on the left
 continue=continue
 continue_onto=continue onto %1$s
 turn_left=turn left

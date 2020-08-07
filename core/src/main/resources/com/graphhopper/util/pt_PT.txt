@@ -1,5 +1,8 @@
 # do not edit manually, instead use spreadsheet https://t.co/f086oJXAEI and script ./core/files/update-translations.sh
 
+cross_front=Use a passadeira em frente
+cross_right=Use a passadeira à direita
+cross_left=Use a passadeira à esquerda
 continue=continuar
 continue_onto=continue na %1$s
 turn_left=vire à esquerda
