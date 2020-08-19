@@ -377,6 +377,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         Instruction finishInstruction = new FinishInstruction(nodeAccess, prevEdge.getAdjNode());
         // This is the heading how the edge ended
         finishInstruction.setExtraInfo("last_heading", Helper.ANGLE_CALC.calcAzimuth(doublePrevLat, doublePrevLon, prevLat, prevLon));
+        setSafeTag(prevEdge, finishInstruction);
         ways.add(finishInstruction);
     }
 
@@ -497,6 +498,26 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         return returnForcedInstructionOrIgnore(forceInstruction, sign);
     }
 
+    private boolean setSafeTag(EdgeIteratorState edge, Instruction instr) {
+        if(edge.get(roadClassEnc).equals(RoadClass.FOOTWAY) ||
+            edge.get(roadClassEnc).equals(RoadClass.PATH) ||
+            edge.get(roadClassEnc).equals(RoadClass.STEPS) ||
+            edge.get(roadClassEnc).equals(RoadClass.PEDESTRIAN) ||
+            edge.get(roadClassEnc).equals(RoadClass.LIVING_STREET) ||
+            edge.get(roadClassEnc).equals(RoadClass.TRACK) ||
+            edge.get(roadClassEnc).equals(RoadClass.SERVICE) ||
+            edge.get(roadClassEnc).equals(RoadClass.PLATFORM))
+        {
+            instr.setExtraInfo("safe", "yes");
+            return true;
+        }
+        else
+        {
+            instr.setExtraInfo("safe", "no");
+            return false;
+        }
+    }
+
     private int convertToCrossing(EdgeIteratorState edge, int sign) {
         if(edge.get(crosEnc) != Crossing.OTHER && edge.get(crosEnc) != Crossing.NO)
         {
@@ -527,6 +548,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         prevInstruction.setDistance(newDist + prevInstruction.getDistance());
         // todo: why do we not account for turn times here ?
         prevInstruction.setTime(weighting.calcEdgeMillis(edge, false) + prevInstruction.getTime());
+        setSafeTag(edge, prevInstruction);
     }
 
 }
