@@ -37,7 +37,7 @@ public class Request {
     private double betaWalkTime = 1.0;
     private Integer limitSolutions;
     private boolean arriveBy;
-    private double walkSpeedKmH = 5.0;
+    private double walkSpeedKmH = 4.5;
     private int blockedRouteTypes;
     private Locale locale = Helper.getLocale("en");
     private Duration limitStreetTime;
