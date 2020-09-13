@@ -23,6 +23,9 @@ import java.util.Map;
 public class Instruction {
     public static final int UNKNOWN = -99;
     public static final int U_TURN_UNKNOWN = -98;
+    public static final int EXIT_CROSSING_SHARP_LEFT = -12;
+    public static final int EXIT_CROSSING_LEFT = -11;
+    public static final int EXIT_CROSSING_SLIGHT_LEFT = -10;
     public static final int CROSSING_LEFT = -9;
     public static final int U_TURN_LEFT = -8;
     public static final int KEEP_LEFT = -7;
@@ -41,7 +44,11 @@ public class Instruction {
     public static final int KEEP_RIGHT = 7;
     public static final int U_TURN_RIGHT = 8;
     public static final int CROSSING_RIGHT = 9;
-    public static final int CROSSING_FRONT = 100;
+    public static final int EXIT_CROSSING_SLIGHT_RIGHT = 10;
+    public static final int EXIT_CROSSING_RIGHT = 11;
+    public static final int EXIT_CROSSING_SHARP_RIGHT = 12;
+    public static final int CROSSING_FRONT = 99;
+    public static final int EXIT_CROSSING_FRONT = 100;
     public static final int PT_START_TRIP = 101;
     public static final int PT_TRANSFER = 102;
     public static final int PT_END_TRIP = 103;
@@ -261,6 +268,27 @@ public class Instruction {
                     break;
                 case Instruction.CROSSING_RIGHT:
                     dir = tr.tr("cross_right");
+                    break;
+                case Instruction.EXIT_CROSSING_FRONT:
+                    dir = tr.tr("exit_cross_front");
+                    break;
+                case Instruction.EXIT_CROSSING_RIGHT:
+                    dir = tr.tr("exit_cross_right");
+                    break;
+                case Instruction.EXIT_CROSSING_LEFT:
+                    dir = tr.tr("exit_cross_left");
+                    break;
+                case Instruction.EXIT_CROSSING_SLIGHT_RIGHT:
+                    dir = tr.tr("exit_cross_slight_right");
+                    break;
+                case Instruction.EXIT_CROSSING_SLIGHT_LEFT:
+                    dir = tr.tr("exit_cross_slight_left");
+                    break;
+                case Instruction.EXIT_CROSSING_SHARP_RIGHT:
+                    dir = tr.tr("exit_cross_sharp_right");
+                    break;
+                case Instruction.EXIT_CROSSING_SHARP_LEFT:
+                    dir = tr.tr("exit_cross_sharp_left");
                     break;
             }   
             if (dir == null)

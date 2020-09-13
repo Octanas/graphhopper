@@ -3,6 +3,13 @@
 cross_front=Use a passadeira em frente
 cross_right=Use a passadeira à direita
 cross_left=Use a passadeira à esquerda
+exit_cross_front=Continue em frente à saída da passadeira
+exit_cross_right=Vire à direita à saída da passadeira
+exit_cross_left=Vire à esquerda à saída da passadeira
+exit_cross_slight_right=Vire ligeiramente à direita à saída da passadeira
+exit_cross_slight_left=Vire ligeiramente à esquerda à saída da passadeira
+exit_cross_sharp_right=Vire bruscamente à direita à saída da passadeira
+exit_cross_sharp_left=Vire bruscamente à esquerda à saída da passadeira
 continue=continuar
 continue_onto=continue na %1$s
 turn_left=vire à esquerda
