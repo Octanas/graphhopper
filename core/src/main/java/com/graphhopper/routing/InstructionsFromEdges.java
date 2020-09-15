@@ -384,6 +384,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
 
     private int getTurn(EdgeIteratorState edge, int baseNode, int prevNode, int adjNode, InstructionAnnotation annotation, String name) {
         boolean inCrossing = edge.get(crosEnc) != Crossing.OTHER && edge.get(crosEnc) != Crossing.NO;
+        boolean enteringCrossing = !prevInCrossing && inCrossing;
         boolean exitingCrossing = prevInCrossing && !inCrossing;
         prevInCrossing = inCrossing;
         
@@ -391,9 +392,9 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         double lat = point.getLat();
         double lon = point.getLon();
         prevOrientation = Helper.ANGLE_CALC.calcOrientation(doublePrevLat, doublePrevLon, prevLat, prevLon);
-        int sign = InstructionsHelper.calculateSign(prevLat, prevLon, lat, lon, prevOrientation, exitingCrossing);
+        int sign = InstructionsHelper.calculateSign(prevLat, prevLon, lat, lon, prevOrientation, enteringCrossing, exitingCrossing);
 
-        boolean forceInstruction = exitingCrossing;
+        boolean forceInstruction = exitingCrossing || enteringCrossing;
 
         if (!annotation.equals(prevAnnotation) && !annotation.isEmpty()) {
             forceInstruction = true;
@@ -410,7 +411,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
                 // possible turn, also see #1048
                 // TODO if we see issue with this approach we could consider checking if the edge is a oneway
 
-                return convertToCrossing(edge, sign);
+                return sign;
             }
             return returnForcedInstructionOrIgnore(forceInstruction, sign);
         }
@@ -425,7 +426,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
                 return returnForcedInstructionOrIgnore(forceInstruction, sign);
             }
 
-            return convertToCrossing(edge, sign);
+            return sign;
         }
 
         /*
@@ -436,7 +437,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
          */
         if (prevEdge == null) {
             // TODO Should we log this case?
-            return convertToCrossing(edge, sign);
+            return sign;
         }
 
         boolean outgoingEdgesAreSlower = outgoingEdges.outgoingEdgesAreSlowerByFactor(1);
@@ -478,13 +479,31 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
 
                 // This is required to avoid keep left/right on the motorway at off-ramps/motorway_links
                 if (Math.abs(delta) < .1 && Math.abs(otherDelta) > .15 && InstructionsHelper.isNameSimilar(name, prevName)) {
-                    return convertToCrossing(edge, Instruction.CONTINUE_ON_STREET);
+                    if(enteringCrossing)
+                        return Instruction.CROSSING_FRONT;
+                    
+                    if(exitingCrossing)
+                        return Instruction.EXIT_CROSSING_FRONT;
+                    
+                    return Instruction.CONTINUE_ON_STREET;
                 }
 
                 if (otherDelta < delta) {
-                    return convertToCrossing(edge, Instruction.KEEP_LEFT);
+                    if(enteringCrossing)
+                        return Instruction.CROSSING_FRONT;
+                
+                    if(exitingCrossing) 
+                        return Instruction.EXIT_CROSSING_FRONT;
+
+                    return Instruction.KEEP_LEFT;
                 } else {
-                    return convertToCrossing(edge, Instruction.KEEP_RIGHT);
+                    if(enteringCrossing)
+                        return Instruction.CROSSING_FRONT;
+                
+                    if(exitingCrossing)
+                        return Instruction.EXIT_CROSSING_FRONT;
+
+                    return Instruction.KEEP_RIGHT;
                 }
 
 
@@ -495,7 +514,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
             if (Math.abs(delta) > .6
                     || outgoingEdges.isLeavingCurrentStreet(prevName, name)) {
                 // Leave the current road -> create instruction
-                return convertToCrossing(edge, sign);
+                return sign;
 
             }
         }
@@ -520,22 +539,6 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
             instr.setExtraInfo("safe", "no");
             return false;
         }
-    }
-
-    private int convertToCrossing(EdgeIteratorState edge, int sign) {
-        if(edge.get(crosEnc) != Crossing.OTHER && edge.get(crosEnc) != Crossing.NO)
-        {
-            if(sign == Instruction.CONTINUE_ON_STREET || sign == Instruction.KEEP_LEFT || sign == Instruction.KEEP_RIGHT)
-                sign = Instruction.CROSSING_FRONT;
-            else if(sign < 0)
-                sign = Instruction.CROSSING_LEFT;
-            else
-                sign = Instruction.CROSSING_RIGHT;
-
-            prevInCrossing = true;
-        }
-
-        return sign;
     }
 
     private int returnForcedInstructionOrIgnore(boolean forceInstruction, int sign) {

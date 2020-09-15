@@ -23,10 +23,12 @@ import java.util.Map;
 public class Instruction {
     public static final int UNKNOWN = -99;
     public static final int U_TURN_UNKNOWN = -98;
-    public static final int EXIT_CROSSING_SHARP_LEFT = -12;
-    public static final int EXIT_CROSSING_LEFT = -11;
-    public static final int EXIT_CROSSING_SLIGHT_LEFT = -10;
-    public static final int CROSSING_LEFT = -9;
+    public static final int EXIT_CROSSING_SHARP_LEFT = -14;
+    public static final int EXIT_CROSSING_LEFT = -13;
+    public static final int EXIT_CROSSING_SLIGHT_LEFT = -12;
+    public static final int CROSSING_SHARP_LEFT = -11;
+    public static final int CROSSING_LEFT = -10;
+    public static final int CROSSING_SLIGHT_LEFT = -9;
     public static final int U_TURN_LEFT = -8;
     public static final int KEEP_LEFT = -7;
     public static final int LEAVE_ROUNDABOUT = -6; // for future use
@@ -43,10 +45,12 @@ public class Instruction {
     public static final int IGNORE = Integer.MIN_VALUE;
     public static final int KEEP_RIGHT = 7;
     public static final int U_TURN_RIGHT = 8;
-    public static final int CROSSING_RIGHT = 9;
-    public static final int EXIT_CROSSING_SLIGHT_RIGHT = 10;
-    public static final int EXIT_CROSSING_RIGHT = 11;
-    public static final int EXIT_CROSSING_SHARP_RIGHT = 12;
+    public static final int CROSSING_SLIGHT_RIGHT = 9;
+    public static final int CROSSING_RIGHT = 10;
+    public static final int CROSSING_SHARP_RIGHT = 11;
+    public static final int EXIT_CROSSING_SLIGHT_RIGHT = 12;
+    public static final int EXIT_CROSSING_RIGHT = 13;
+    public static final int EXIT_CROSSING_SHARP_RIGHT = 14;
     public static final int CROSSING_FRONT = 99;
     public static final int EXIT_CROSSING_FRONT = 100;
     public static final int PT_START_TRIP = 101;
@@ -266,8 +270,20 @@ public class Instruction {
                 case Instruction.CROSSING_LEFT:
                     dir = tr.tr("cross_left");
                     break;
+                case Instruction.CROSSING_SLIGHT_LEFT:
+                    dir = tr.tr("cross_slight_left");
+                    break;
+                case Instruction.CROSSING_SHARP_LEFT:
+                    dir = tr.tr("cross_sharp_left");
+                    break;
                 case Instruction.CROSSING_RIGHT:
                     dir = tr.tr("cross_right");
+                    break;
+                case Instruction.CROSSING_SLIGHT_RIGHT:
+                    dir = tr.tr("cross_slight_right");
+                    break;
+                case Instruction.CROSSING_SHARP_RIGHT:
+                    dir = tr.tr("cross_sharp_right");
                     break;
                 case Instruction.EXIT_CROSSING_FRONT:
                     dir = tr.tr("exit_cross_front");

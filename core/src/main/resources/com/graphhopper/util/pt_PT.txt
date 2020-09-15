@@ -1,8 +1,12 @@
 # do not edit manually, instead use spreadsheet https://t.co/f086oJXAEI and script ./core/files/update-translations.sh
 
 cross_front=Use a passadeira em frente
-cross_right=Use a passadeira à direita
-cross_left=Use a passadeira à esquerda
+cross_right=Vire à direita e use a passadeira
+cross_left=Vire à esquerda e use a passadeira
+cross_slight_right=Vire ligeiramente à direita e use a passadeira
+cross_slight_left=Vire ligeiramente à esquerda e use a passadeira
+cross_sharp_right=Vire bruscamente à direita e use a passadeira
+cross_sharp_left=Vire bruscamente à esquerda e use a passadeira
 exit_cross_front=Continue em frente à saída da passadeira
 exit_cross_right=Vire à direita à saída da passadeira
 exit_cross_left=Vire à esquerda à saída da passadeira
