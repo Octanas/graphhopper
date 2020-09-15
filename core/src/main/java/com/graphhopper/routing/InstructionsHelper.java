@@ -42,80 +42,26 @@ class InstructionsHelper {
 
         if (absDelta < 0.2) {
             // 0.2 ~= 11°
-            if(enteringCrossing)
-                return Instruction.CROSSING_FRONT;
-            
-            if(exitingCrossing)
-                return Instruction.EXIT_CROSSING_FRONT;
-            
-                return Instruction.CONTINUE_ON_STREET;
+            return Instruction.CONTINUE_ON_STREET;
 
         } else if (absDelta < 0.8) {
             // 0.8 ~= 40°
             if (delta > 0)
-            {
-                if(enteringCrossing)
-                    return Instruction.CROSSING_SLIGHT_LEFT;
-                
-                if(exitingCrossing)
-                    return Instruction.EXIT_CROSSING_SLIGHT_LEFT;
-                
-                    return Instruction.TURN_SLIGHT_LEFT;
-            }
+                return Instruction.TURN_SLIGHT_LEFT;
             else
-            {
-                if(enteringCrossing)
-                    return Instruction.CROSSING_SLIGHT_RIGHT;
-
-                if(exitingCrossing)
-                    return Instruction.EXIT_CROSSING_SLIGHT_RIGHT;
-                
                 return Instruction.TURN_SLIGHT_RIGHT;
-            }
 
         } else if (absDelta < 1.8) {
             // 1.8 ~= 103°
             if (delta > 0)
-            {
-                if(enteringCrossing)
-                    return Instruction.CROSSING_LEFT;
-
-                if(exitingCrossing)
-                    return Instruction.EXIT_CROSSING_LEFT;
-                
                 return Instruction.TURN_LEFT;
-            }
             else
-            {
-                if(enteringCrossing)
-                    return Instruction.CROSSING_RIGHT;
-
-                if(exitingCrossing)
-                    return Instruction.EXIT_CROSSING_RIGHT;
-                
                 return Instruction.TURN_RIGHT;
-            }
 
-        } else if (delta > 0)
-        {
-            if(enteringCrossing)
-                return Instruction.CROSSING_SHARP_LEFT;
-
-            if(exitingCrossing)
-                return Instruction.EXIT_CROSSING_SHARP_LEFT;
-            
+        } else if (delta > 0)            
             return Instruction.TURN_SHARP_LEFT;
-        }
         else
-        {
-            if(enteringCrossing)
-                return Instruction.CROSSING_SHARP_RIGHT;
-
-            if(exitingCrossing)
-                return Instruction.EXIT_CROSSING_SHARP_RIGHT;
-            
             return Instruction.TURN_SHARP_RIGHT;
-        }
     }
 
     static boolean isNameSimilar(String name1, String name2) {

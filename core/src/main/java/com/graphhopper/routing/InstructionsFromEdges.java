@@ -394,6 +394,56 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         prevOrientation = Helper.ANGLE_CALC.calcOrientation(doublePrevLat, doublePrevLon, prevLat, prevLon);
         int sign = InstructionsHelper.calculateSign(prevLat, prevLon, lat, lon, prevOrientation, enteringCrossing, exitingCrossing);
 
+        // Transform signs
+        if(enteringCrossing || exitingCrossing)
+        {
+            switch(sign)
+            {
+                case Instruction.CONTINUE_ON_STREET:
+                    if(enteringCrossing)
+                        sign = Instruction.CROSSING_FRONT;
+                    else if(exitingCrossing)
+                        sign = Instruction.EXIT_CROSSING_FRONT;
+                    break;
+                case Instruction.TURN_SLIGHT_LEFT:
+                    if(enteringCrossing)
+                        sign = Instruction.CROSSING_SLIGHT_LEFT;
+                    else if(exitingCrossing)
+                        sign = Instruction.EXIT_CROSSING_SLIGHT_LEFT;
+                    break;
+                case Instruction.TURN_SLIGHT_RIGHT:
+                    if(enteringCrossing)
+                        sign = Instruction.CROSSING_SLIGHT_RIGHT;
+                    else if(exitingCrossing)
+                        sign = Instruction.EXIT_CROSSING_SLIGHT_RIGHT;
+                    break;
+                case Instruction.TURN_LEFT:
+                    if(enteringCrossing)
+                        sign = Instruction.CROSSING_LEFT;
+                    else if(exitingCrossing)
+                        sign = Instruction.EXIT_CROSSING_LEFT;
+                    break;
+                case Instruction.TURN_RIGHT:
+                    if(enteringCrossing)
+                        sign = Instruction.CROSSING_RIGHT;
+                    else if(exitingCrossing)
+                        sign = Instruction.EXIT_CROSSING_RIGHT;
+                    break;
+                case Instruction.TURN_SHARP_LEFT:
+                    if(enteringCrossing)
+                        sign = Instruction.CROSSING_SHARP_LEFT;
+                    else if(exitingCrossing)
+                        sign = Instruction.EXIT_CROSSING_SHARP_LEFT;
+                    break;
+                case Instruction.TURN_SHARP_RIGHT:
+                    if(enteringCrossing)
+                        sign = Instruction.CROSSING_SHARP_RIGHT;
+                    else if(exitingCrossing)
+                        sign = Instruction.EXIT_CROSSING_SHARP_RIGHT;
+                    break;
+            }
+        }
+
         boolean forceInstruction = exitingCrossing || enteringCrossing;
 
         if (!annotation.equals(prevAnnotation) && !annotation.isEmpty()) {
