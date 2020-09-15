@@ -23,6 +23,18 @@ import java.util.Map;
 public class Instruction {
     public static final int UNKNOWN = -99;
     public static final int U_TURN_UNKNOWN = -98;
+    public static final int EXIT_UNMARKED_CROSSING_SHARP_LEFT = -26;
+    public static final int EXIT_UNMARKED_CROSSING_LEFT = -25;
+    public static final int EXIT_UNMARKED_CROSSING_SLIGHT_LEFT = -24;
+    public static final int UNMARKED_CROSSING_SHARP_LEFT = -23;
+    public static final int UNMARKED_CROSSING_LEFT = -22;
+    public static final int UNMARKED_CROSSING_SLIGHT_LEFT = -21;
+    public static final int EXIT_STEPS_SHARP_LEFT = -20;
+    public static final int EXIT_STEPS_LEFT = -19;
+    public static final int EXIT_STEPS_SLIGHT_LEFT = -18;
+    public static final int STEPS_SHARP_LEFT = -17;
+    public static final int STEPS_LEFT = -16;
+    public static final int STEPS_SLIGHT_LEFT = -15;
     public static final int EXIT_CROSSING_SHARP_LEFT = -14;
     public static final int EXIT_CROSSING_LEFT = -13;
     public static final int EXIT_CROSSING_SLIGHT_LEFT = -12;
@@ -51,6 +63,22 @@ public class Instruction {
     public static final int EXIT_CROSSING_SLIGHT_RIGHT = 12;
     public static final int EXIT_CROSSING_RIGHT = 13;
     public static final int EXIT_CROSSING_SHARP_RIGHT = 14;
+    public static final int STEPS_SLIGHT_RIGHT = 15;
+    public static final int STEPS_RIGHT = 16;
+    public static final int STEPS_SHARP_RIGHT = 17;
+    public static final int EXIT_STEPS_SLIGHT_RIGHT = 18;
+    public static final int EXIT_STEPS_RIGHT = 19;
+    public static final int EXIT_STEPS_SHARP_RIGHT = 20;
+    public static final int UNMARKED_CROSSING_SLIGHT_RIGHT = 21;
+    public static final int UNMARKED_CROSSING_RIGHT = 22;
+    public static final int UNMARKED_CROSSING_SHARP_RIGHT = 23;
+    public static final int EXIT_UNMARKED_CROSSING_SLIGHT_RIGHT = 24;
+    public static final int EXIT_UNMARKED_CROSSING_RIGHT = 25;
+    public static final int EXIT_UNMARKED_CROSSING_SHARP_RIGHT = 26;
+    public static final int UNMARKED_CROSSING_FRONT = 95;
+    public static final int EXIT_UNMARKED_CROSSING_FRONT = 96;
+    public static final int STEPS_FRONT = 97;
+    public static final int EXIT_STEPS_FRONT = 98;
     public static final int CROSSING_FRONT = 99;
     public static final int EXIT_CROSSING_FRONT = 100;
     public static final int PT_START_TRIP = 101;
@@ -305,6 +333,90 @@ public class Instruction {
                     break;
                 case Instruction.EXIT_CROSSING_SHARP_LEFT:
                     dir = tr.tr("exit_cross_sharp_left");
+                    break;
+                case Instruction.STEPS_FRONT:
+                    dir = tr.tr("steps_front");
+                    break;
+                case Instruction.STEPS_LEFT:
+                    dir = tr.tr("steps_left");
+                    break;
+                case Instruction.STEPS_SLIGHT_LEFT:
+                    dir = tr.tr("steps_slight_left");
+                    break;
+                case Instruction.STEPS_SHARP_LEFT:
+                    dir = tr.tr("steps_sharp_left");
+                    break;
+                case Instruction.STEPS_RIGHT:
+                    dir = tr.tr("steps_right");
+                    break;
+                case Instruction.STEPS_SLIGHT_RIGHT:
+                    dir = tr.tr("steps_slight_right");
+                    break;
+                case Instruction.STEPS_SHARP_RIGHT:
+                    dir = tr.tr("steps_sharp_right");
+                    break;
+                case Instruction.EXIT_STEPS_FRONT:
+                    dir = tr.tr("exit_steps_front");
+                    break;
+                case Instruction.EXIT_STEPS_RIGHT:
+                    dir = tr.tr("exit_steps_right");
+                    break;
+                case Instruction.EXIT_STEPS_LEFT:
+                    dir = tr.tr("exit_steps_left");
+                    break;
+                case Instruction.EXIT_STEPS_SLIGHT_RIGHT:
+                    dir = tr.tr("exit_steps_slight_right");
+                    break;
+                case Instruction.EXIT_STEPS_SLIGHT_LEFT:
+                    dir = tr.tr("exit_steps_slight_left");
+                    break;
+                case Instruction.EXIT_STEPS_SHARP_RIGHT:
+                    dir = tr.tr("exit_steps_sharp_right");
+                    break;
+                case Instruction.EXIT_STEPS_SHARP_LEFT:
+                    dir = tr.tr("exit_steps_sharp_left");
+                    break;
+                case Instruction.UNMARKED_CROSSING_FRONT:
+                    dir = tr.tr("unmarked_cross_front");
+                    break;
+                case Instruction.UNMARKED_CROSSING_LEFT:
+                    dir = tr.tr("unmarked_cross_left");
+                    break;
+                case Instruction.UNMARKED_CROSSING_SLIGHT_LEFT:
+                    dir = tr.tr("unmarked_cross_slight_left");
+                    break;
+                case Instruction.UNMARKED_CROSSING_SHARP_LEFT:
+                    dir = tr.tr("unmarked_cross_sharp_left");
+                    break;
+                case Instruction.UNMARKED_CROSSING_RIGHT:
+                    dir = tr.tr("unmarked_cross_right");
+                    break;
+                case Instruction.UNMARKED_CROSSING_SLIGHT_RIGHT:
+                    dir = tr.tr("unmarked_cross_slight_right");
+                    break;
+                case Instruction.UNMARKED_CROSSING_SHARP_RIGHT:
+                    dir = tr.tr("unmarked_cross_sharp_right");
+                    break;
+                case Instruction.EXIT_UNMARKED_CROSSING_FRONT:
+                    dir = tr.tr("exit_unmarked_cross_front");
+                    break;
+                case Instruction.EXIT_UNMARKED_CROSSING_RIGHT:
+                    dir = tr.tr("exit_unmarked_cross_right");
+                    break;
+                case Instruction.EXIT_UNMARKED_CROSSING_LEFT:
+                    dir = tr.tr("exit_unmarked_cross_left");
+                    break;
+                case Instruction.EXIT_UNMARKED_CROSSING_SLIGHT_RIGHT:
+                    dir = tr.tr("exit_unmarked_cross_slight_right");
+                    break;
+                case Instruction.EXIT_UNMARKED_CROSSING_SLIGHT_LEFT:
+                    dir = tr.tr("exit_unmarked_cross_slight_left");
+                    break;
+                case Instruction.EXIT_UNMARKED_CROSSING_SHARP_RIGHT:
+                    dir = tr.tr("exit_unmarked_cross_sharp_right");
+                    break;
+                case Instruction.EXIT_UNMARKED_CROSSING_SHARP_LEFT:
+                    dir = tr.tr("exit_unmarked_cross_sharp_left");
                     break;
             }   
             if (dir == null)

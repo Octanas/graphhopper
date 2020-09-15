@@ -88,6 +88,8 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
     private Instruction prevInstruction;
     private boolean prevInRoundabout;
     private boolean prevInCrossing;
+    private boolean prevInUnmarkedCrossing;
+    private boolean prevInSteps;
     private String prevName;
     private String prevInstructionName;
     private InstructionAnnotation prevAnnotation;
@@ -383,10 +385,20 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
     }
 
     private int getTurn(EdgeIteratorState edge, int baseNode, int prevNode, int adjNode, InstructionAnnotation annotation, String name) {
-        boolean inCrossing = edge.get(crosEnc) != Crossing.OTHER && edge.get(crosEnc) != Crossing.NO;
+        boolean inCrossing = edge.get(crosEnc) != Crossing.UNMARKED && edge.get(crosEnc) != Crossing.OTHER && edge.get(crosEnc) != Crossing.NO;
         boolean enteringCrossing = !prevInCrossing && inCrossing;
         boolean exitingCrossing = prevInCrossing && !inCrossing;
         prevInCrossing = inCrossing;
+
+        boolean inUnmarkedCrossing = edge.get(crosEnc) == Crossing.UNMARKED;
+        boolean enteringUnmarkedCrossing = !prevInUnmarkedCrossing && inUnmarkedCrossing;
+        boolean exitingUnmarkedCrossing = prevInUnmarkedCrossing && !inUnmarkedCrossing;
+        prevInUnmarkedCrossing = inUnmarkedCrossing;
+
+        boolean inSteps = edge.get(roadClassEnc).equals(RoadClass.STEPS);
+        boolean enteringSteps = !prevInSteps && inSteps;
+        boolean exitingSteps = prevInSteps && !inSteps;
+        prevInSteps = inSteps;
         
         GHPoint point = InstructionsHelper.getPointForOrientationCalculation(edge, nodeAccess);
         double lat = point.getLat();
@@ -395,7 +407,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         int sign = InstructionsHelper.calculateSign(prevLat, prevLon, lat, lon, prevOrientation, enteringCrossing, exitingCrossing);
 
         // Transform signs
-        if(enteringCrossing || exitingCrossing)
+        if(enteringCrossing || exitingCrossing || enteringUnmarkedCrossing || exitingUnmarkedCrossing || enteringSteps || exitingSteps)
         {
             switch(sign)
             {
@@ -404,47 +416,103 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
                         sign = Instruction.CROSSING_FRONT;
                     else if(exitingCrossing)
                         sign = Instruction.EXIT_CROSSING_FRONT;
+                    else if(enteringUnmarkedCrossing)
+                        sign = Instruction.UNMARKED_CROSSING_FRONT;
+                    else if(exitingUnmarkedCrossing)
+                        sign = Instruction.EXIT_UNMARKED_CROSSING_FRONT;
+                    else if(enteringSteps)
+                        sign = Instruction.STEPS_FRONT;
+                    else if(exitingSteps)
+                        sign = Instruction.EXIT_STEPS_FRONT;
                     break;
                 case Instruction.TURN_SLIGHT_LEFT:
                     if(enteringCrossing)
                         sign = Instruction.CROSSING_SLIGHT_LEFT;
                     else if(exitingCrossing)
                         sign = Instruction.EXIT_CROSSING_SLIGHT_LEFT;
+                    else if(enteringUnmarkedCrossing)
+                        sign = Instruction.UNMARKED_CROSSING_SLIGHT_LEFT;
+                    else if(exitingUnmarkedCrossing)
+                        sign = Instruction.EXIT_UNMARKED_CROSSING_SLIGHT_LEFT;
+                    else if(enteringSteps)
+                        sign = Instruction.STEPS_SLIGHT_LEFT;
+                    else if(exitingSteps)
+                        sign = Instruction.EXIT_STEPS_SLIGHT_LEFT;
                     break;
                 case Instruction.TURN_SLIGHT_RIGHT:
                     if(enteringCrossing)
                         sign = Instruction.CROSSING_SLIGHT_RIGHT;
                     else if(exitingCrossing)
                         sign = Instruction.EXIT_CROSSING_SLIGHT_RIGHT;
+                    else if(enteringUnmarkedCrossing)
+                        sign = Instruction.UNMARKED_CROSSING_SLIGHT_RIGHT;
+                    else if(exitingUnmarkedCrossing)
+                        sign = Instruction.EXIT_UNMARKED_CROSSING_SLIGHT_RIGHT;
+                    else if(enteringSteps)
+                        sign = Instruction.STEPS_SLIGHT_RIGHT;
+                    else if(exitingSteps)
+                        sign = Instruction.EXIT_STEPS_SLIGHT_RIGHT;
                     break;
                 case Instruction.TURN_LEFT:
                     if(enteringCrossing)
                         sign = Instruction.CROSSING_LEFT;
                     else if(exitingCrossing)
                         sign = Instruction.EXIT_CROSSING_LEFT;
+                    else if(enteringUnmarkedCrossing)
+                        sign = Instruction.UNMARKED_CROSSING_LEFT;
+                    else if(exitingUnmarkedCrossing)
+                        sign = Instruction.EXIT_UNMARKED_CROSSING_LEFT;
+                    else if(enteringSteps)
+                        sign = Instruction.STEPS_LEFT;
+                    else if(exitingSteps)
+                        sign = Instruction.EXIT_STEPS_LEFT;
                     break;
                 case Instruction.TURN_RIGHT:
                     if(enteringCrossing)
                         sign = Instruction.CROSSING_RIGHT;
                     else if(exitingCrossing)
                         sign = Instruction.EXIT_CROSSING_RIGHT;
+                    else if(enteringUnmarkedCrossing)
+                        sign = Instruction.UNMARKED_CROSSING_RIGHT;
+                    else if(exitingUnmarkedCrossing)
+                        sign = Instruction.EXIT_UNMARKED_CROSSING_RIGHT;
+                    else if(enteringSteps)
+                        sign = Instruction.STEPS_RIGHT;
+                    else if(exitingSteps)
+                        sign = Instruction.EXIT_STEPS_RIGHT;
                     break;
                 case Instruction.TURN_SHARP_LEFT:
                     if(enteringCrossing)
                         sign = Instruction.CROSSING_SHARP_LEFT;
                     else if(exitingCrossing)
                         sign = Instruction.EXIT_CROSSING_SHARP_LEFT;
+                    else if(enteringUnmarkedCrossing)
+                        sign = Instruction.UNMARKED_CROSSING_SHARP_LEFT;
+                    else if(exitingUnmarkedCrossing)
+                        sign = Instruction.EXIT_UNMARKED_CROSSING_SHARP_LEFT;
+                    else if(enteringSteps)
+                        sign = Instruction.STEPS_SHARP_LEFT;
+                    else if(exitingSteps)
+                        sign = Instruction.EXIT_STEPS_SHARP_LEFT;
                     break;
                 case Instruction.TURN_SHARP_RIGHT:
                     if(enteringCrossing)
                         sign = Instruction.CROSSING_SHARP_RIGHT;
                     else if(exitingCrossing)
                         sign = Instruction.EXIT_CROSSING_SHARP_RIGHT;
+                    else if(enteringUnmarkedCrossing)
+                        sign = Instruction.UNMARKED_CROSSING_SHARP_RIGHT;
+                    else if(exitingUnmarkedCrossing)
+                        sign = Instruction.EXIT_UNMARKED_CROSSING_SHARP_RIGHT;
+                    else if(enteringSteps)
+                        sign = Instruction.STEPS_SHARP_RIGHT;
+                    else if(exitingSteps)
+                        sign = Instruction.EXIT_STEPS_SHARP_RIGHT;
                     break;
             }
         }
 
-        boolean forceInstruction = exitingCrossing || enteringCrossing;
+        boolean forceInstruction = exitingCrossing || enteringCrossing || enteringUnmarkedCrossing || exitingUnmarkedCrossing || enteringSteps || exitingSteps;
 
         if (!annotation.equals(prevAnnotation) && !annotation.isEmpty()) {
             forceInstruction = true;
@@ -573,13 +641,14 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
     }
 
     private boolean setSafeTag(EdgeIteratorState edge, Instruction instr) {
-        if(edge.get(roadClassEnc).equals(RoadClass.FOOTWAY) ||
+        if((edge.get(roadClassEnc).equals(RoadClass.FOOTWAY) ||
             edge.get(roadClassEnc).equals(RoadClass.PATH) ||
             edge.get(roadClassEnc).equals(RoadClass.STEPS) ||
             edge.get(roadClassEnc).equals(RoadClass.PEDESTRIAN) ||
             edge.get(roadClassEnc).equals(RoadClass.LIVING_STREET) ||
             edge.get(roadClassEnc).equals(RoadClass.TRACK) ||
-            edge.get(roadClassEnc).equals(RoadClass.PLATFORM))
+            edge.get(roadClassEnc).equals(RoadClass.PLATFORM)) &&
+            edge.get(crosEnc) != Crossing.UNMARKED)
         {
             instr.setExtraInfo("safe", "yes");
             return true;

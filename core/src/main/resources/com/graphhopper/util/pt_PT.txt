@@ -14,6 +14,37 @@ exit_cross_slight_right=Vire ligeiramente à direita à saída da passadeira
 exit_cross_slight_left=Vire ligeiramente à esquerda à saída da passadeira
 exit_cross_sharp_right=Vire bruscamente à direita à saída da passadeira
 exit_cross_sharp_left=Vire bruscamente à esquerda à saída da passadeira
+
+unmarked_cross_front=Atravesse a estrada em frente
+unmarked_cross_right=Vire à direita e atravesse a estrada
+unmarked_cross_left=Vire à esquerda e atravesse a estrada
+unmarked_cross_slight_right=Vire ligeiramente à direita e atravesse a estrada
+unmarked_cross_slight_left=Vire ligeiramente à esquerda e atravesse a estrada
+unmarked_cross_sharp_right=Vire bruscamente à direita e atravesse a estrada
+unmarked_cross_sharp_left=Vire bruscamente à esquerda e atravesse a estrada
+exit_unmarked_cross_front=Continue em frente depois de atravessar a estrada
+exit_unmarked_cross_right=Vire à direita depois de atravessar a estrada
+exit_unmarked_cross_left=Vire à esquerda depois de atravessar a estrada
+exit_unmarked_cross_slight_right=Vire ligeiramente à direita depois de atravessar a estrada
+exit_unmarked_cross_slight_left=Vire ligeiramente à esquerda depois de atravessar a estrada
+exit_unmarked_cross_sharp_right=Vire bruscamente à direita depois de atravessar a estrada
+exit_unmarked_cross_sharp_left=Vire bruscamente à esquerda depois de atravessar a estrada
+
+steps_front=Use a escadaria em frente
+steps_right=Vire à direita e use a escadaria
+steps_left=Vire à esquerda e use a escadaria
+steps_slight_right=Vire ligeiramente à direita e use a escadaria
+steps_slight_left=Vire ligeiramente à esquerda e use a escadaria
+steps_sharp_right=Vire bruscamente à direita e use a escadaria
+steps_sharp_left=Vire bruscamente à esquerda e use a escadaria
+exit_steps_front=Continue em frente à saída da escadaria
+exit_steps_right=Vire à direita à saída da escadaria
+exit_steps_left=Vire à esquerda à saída da escadaria
+exit_steps_slight_right=Vire ligeiramente à direita à saída da escadaria
+exit_steps_slight_left=Vire ligeiramente à esquerda à saída da escadaria
+exit_steps_sharp_right=Vire bruscamente à direita à saída da escadaria
+exit_steps_sharp_left=Vire bruscamente à esquerda à saída da escadaria
+
 continue=continuar
 continue_onto=continue na %1$s
 turn_left=vire à esquerda
