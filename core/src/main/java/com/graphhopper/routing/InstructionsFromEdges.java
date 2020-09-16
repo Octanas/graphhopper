@@ -650,12 +650,12 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
             edge.get(roadClassEnc).equals(RoadClass.PLATFORM)) &&
             edge.get(crosEnc) != Crossing.UNMARKED)
         {
-            instr.setExtraInfo("safe", "yes");
+            instr.setExtraInfo("safe", true);
             return true;
         }
         else
         {
-            instr.setExtraInfo("safe", "no");
+            instr.setExtraInfo("safe", false);
             return false;
         }
     }
