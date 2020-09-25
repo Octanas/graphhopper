@@ -53,6 +53,7 @@ class Transfers {
                 myRule.from_stop_id = fromStop;
                 myRule.to_stop_id = toStopId;
 
+                // Fixed a bug that prevented some transfers from having their minimum transfer time respected
                 if(transfers.size() == 1)
                     myRule.min_transfer_time = transfers.get(0).min_transfer_time;
 

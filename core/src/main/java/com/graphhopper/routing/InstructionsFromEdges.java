@@ -404,7 +404,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         double lat = point.getLat();
         double lon = point.getLon();
         prevOrientation = Helper.ANGLE_CALC.calcOrientation(doublePrevLat, doublePrevLon, prevLat, prevLon);
-        int sign = InstructionsHelper.calculateSign(prevLat, prevLon, lat, lon, prevOrientation, enteringCrossing, exitingCrossing);
+        int sign = InstructionsHelper.calculateSign(prevLat, prevLon, lat, lon, prevOrientation);
 
         // Transform signs
         if(enteringCrossing || exitingCrossing || enteringUnmarkedCrossing || exitingUnmarkedCrossing || enteringSteps || exitingSteps)
@@ -597,29 +597,53 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
 
                 // This is required to avoid keep left/right on the motorway at off-ramps/motorway_links
                 if (Math.abs(delta) < .1 && Math.abs(otherDelta) > .15 && InstructionsHelper.isNameSimilar(name, prevName)) {
+                    // Adapts sign for when entering and exiting crosses, unmarked crosses and steps
                     if(enteringCrossing)
                         return Instruction.CROSSING_FRONT;
-                    
-                    if(exitingCrossing)
+                    else if(exitingCrossing)
                         return Instruction.EXIT_CROSSING_FRONT;
+                    else if(enteringUnmarkedCrossing)
+                        return Instruction.UNMARKED_CROSSING_FRONT;
+                    else if(exitingUnmarkedCrossing)
+                        return Instruction.EXIT_UNMARKED_CROSSING_FRONT;
+                    else if(enteringSteps)
+                        return Instruction.STEPS_FRONT;
+                    else if(exitingSteps)
+                        return Instruction.EXIT_STEPS_FRONT;
                     
                     return Instruction.CONTINUE_ON_STREET;
                 }
 
                 if (otherDelta < delta) {
+                    // KEEP_LEFT should be front for entering and exiting crosses, unmarked crosses and steps
                     if(enteringCrossing)
                         return Instruction.CROSSING_FRONT;
-                
-                    if(exitingCrossing) 
+                    else if(exitingCrossing)
                         return Instruction.EXIT_CROSSING_FRONT;
+                    else if(enteringUnmarkedCrossing)
+                        return Instruction.UNMARKED_CROSSING_FRONT;
+                    else if(exitingUnmarkedCrossing)
+                        return Instruction.EXIT_UNMARKED_CROSSING_FRONT;
+                    else if(enteringSteps)
+                        return Instruction.STEPS_FRONT;
+                    else if(exitingSteps)
+                        return Instruction.EXIT_STEPS_FRONT;
 
                     return Instruction.KEEP_LEFT;
                 } else {
+                    // KEEP_RIGHT should be front for entering and exiting crosses, unmarked crosses and steps
                     if(enteringCrossing)
                         return Instruction.CROSSING_FRONT;
-                
-                    if(exitingCrossing)
+                    else if(exitingCrossing)
                         return Instruction.EXIT_CROSSING_FRONT;
+                    else if(enteringUnmarkedCrossing)
+                        return Instruction.UNMARKED_CROSSING_FRONT;
+                    else if(exitingUnmarkedCrossing)
+                        return Instruction.EXIT_UNMARKED_CROSSING_FRONT;
+                    else if(enteringSteps)
+                        return Instruction.STEPS_FRONT;
+                    else if(exitingSteps)
+                        return Instruction.EXIT_STEPS_FRONT;
 
                     return Instruction.KEEP_RIGHT;
                 }
@@ -640,6 +664,7 @@ public class InstructionsFromEdges implements Path.EdgeVisitor {
         return returnForcedInstructionOrIgnore(forceInstruction, sign);
     }
 
+    // Check if an instruction follows save roads and had that information to it
     private boolean setSafeTag(EdgeIteratorState edge, Instruction instr) {
         if((edge.get(roadClassEnc).equals(RoadClass.FOOTWAY) ||
             edge.get(roadClassEnc).equals(RoadClass.PATH) ||

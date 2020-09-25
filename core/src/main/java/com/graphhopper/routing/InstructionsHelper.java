@@ -33,10 +33,6 @@ class InstructionsHelper {
     }
 
     static int calculateSign(double prevLatitude, double prevLongitude, double latitude, double longitude, double prevOrientation) {
-        return calculateSign(prevLatitude, prevLongitude, latitude, longitude, prevOrientation, false, false);
-    }
-
-    static int calculateSign(double prevLatitude, double prevLongitude, double latitude, double longitude, double prevOrientation, boolean enteringCrossing, boolean exitingCrossing) {
         double delta = calculateOrientationDelta(prevLatitude, prevLongitude, latitude, longitude, prevOrientation);
         double absDelta = Math.abs(delta);
 
@@ -58,7 +54,7 @@ class InstructionsHelper {
             else
                 return Instruction.TURN_RIGHT;
 
-        } else if (delta > 0)            
+        } else if (delta > 0)
             return Instruction.TURN_SHARP_LEFT;
         else
             return Instruction.TURN_SHARP_RIGHT;
